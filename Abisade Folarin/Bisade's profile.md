@@ -8,7 +8,7 @@
 - :school: I'm an `Erasmus Master Student` in SEAS 4.0 at Universidade Da Coruna
 - :technologist: I love using Technology as a solution for every `Problem`
 - :student: I’m currently learning: `Industry 4.0` , `Industrial internet of things` and `Digital Twin`.
-- :nerd_face: Always `learning new things`
+- :nerd_face: Always `learning new things`, this is [MY RESUME](https://xxxxxxxxxxxxxxxx).
 
 <br>
 

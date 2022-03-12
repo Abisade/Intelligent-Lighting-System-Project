@@ -1,0 +1,56 @@
+/*
+
+LAB 2 Exercises:
+By making use of the knowledge acquired by testing the examples provided in this lab, program two pieces of code that:
+1) With the sensor selected for your group project: implement the part of your group project flowchart, but just use the serial port to print the obtained results. 
+For instance, if the flowchart indicates that you should check whether the temperature goes above 50ºC, you should create a program that reads the temperature sensors, checks if it is above 50ºC
+and then writes in the serial port either the message “Temperature is above 50ºC” or “Temperature is below 50ºC”.
+2) With the additional sensor you were given: if it is a sensor, just read it and print the values through the serial port; if it is an actuator, use the code from the final exercise of
+Lab 1 to turn it on and off by typing a specific character through the serial port.
+
+----------------------------------------------------------------------
+
+*** 1st piece of code (with regard to the first exercise) ***
+
+Further explanation: 
+As a part of our HILS project, according to our 'ICPS Flowchart', it's prescribed that the simultaneous utilization of push button and LED is imperative - which is pertinent to my duty and/or contribution towards the final project.
+For the purpose of further elucidation, I should be able to implement a code in which the following task can be performed:
+When I press the button, LED will be turned on and stays on as well. Then, once I press the switch button again it goes off and -still- stays off until the time that I press the button anew. 
+
+*/
+
+int pushbutton = D1; 
+int greenpin = D2; // pin for the green LED
+boolean flag = true;
+
+void setup()
+{
+  pinMode(greenpin,OUTPUT);
+  Serial.begin(230400); 
+}
+
+void loop()
+{ 
+  if (digitalRead(pushbutton)==LOW){ // check the status of push button  
+      delay(5);  
+      flipflop();
+  }
+}
+
+void flipflop()
+{ 
+  flag = !flag;  // the switch is pressed; so FLIP the boolean "flag" state
+
+  if (flag == HIGH){ // use the value of flag var to change the status
+      digitalWrite(greenpin,HIGH ); // if the flag var is HIGH turn the LED on
+      Serial.println("LED is ON");
+  }
+
+  if (flag == LOW) {
+      digitalWrite(greenpin,LOW); // if the flag var is LOW turn the LED off 
+      Serial.println("LED is OFF");    
+  }
+  
+  while(digitalRead(pushbutton)==LOW); // in case of "slow" button release, maintains the light (in the function) until the button is UN-pressed
+        delay(5);
+}

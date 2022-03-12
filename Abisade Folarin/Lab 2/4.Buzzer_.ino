@@ -1,4 +1,7 @@
-//B and E activating the Buzzer
+//Program allows for controlling the Buzzer through the Serial Monitor. 
+//Thus, when the ESP8266 receives my “ON character - B” the Buzzer will be switched on, and, 
+//when sending my “OFF character - E”, the Buzzer will be switched off.
+
 #include "pitches.h"
 
 byte recievedByte = 0;

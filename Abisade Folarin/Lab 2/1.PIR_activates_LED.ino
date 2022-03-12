@@ -1,4 +1,4 @@
-//The Passive Infrared (PIR) sensor (HC SR501) detects motion and then activates the seven-colour blink LED to go either ON or OFF accordingly.
+//The Passive Infrared (PIR) sensor (HC SR501) detects motion and then activates the seven-colour blink LED to go either ON or OFF according to motion detected.
 
 int ledPin = LED_BUILTIN;          //Pin for the LED
 int inputPin = D1;                 //data pin for PIR sensor
@@ -16,14 +16,14 @@ void setup() {
 void loop() {
   val = digitalRead(inputPin);      //read input value 
   if (val == HIGH) {                //check if the input is HIGH  
-    digitalWrite(ledPin, LOW);      //turn ON board ESP8266
+    digitalWrite(ledPin, LOW);      //turn ON embedded LED
     digitalWrite(D2, HIGH);         //turn ON LED light D2
     if (pirState == HIGH) {
       Serial.println("Motion is Detected!");
       pirState = LOW;
     }
   } else {
-    digitalWrite(ledPin, HIGH);    // turn OFF board ESP8266
+    digitalWrite(ledPin, HIGH);    // turn OFF embedded LED
     digitalWrite(D2, LOW);         //turn OFF LED light D2
     if (pirState == LOW) {
       Serial.println("Motion has ended!");

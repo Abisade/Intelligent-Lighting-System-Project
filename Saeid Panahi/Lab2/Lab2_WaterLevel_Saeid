@@ -1,0 +1,36 @@
+/*
+
+LAB 2 Exercises:
+By making use of the knowledge acquired by testing the examples provided in this lab, program two pieces of code that:
+1) With the sensor selected for your group project: implement the part of your group project flowchart, but just use the serial port to print the obtained results. 
+For instance, if the flowchart indicates that you should check whether the temperature goes above 50ºC, you should create a program that reads the temperature sensors, checks if it is above 50ºC
+and then writes in the serial port either the message “Temperature is above 50ºC” or “Temperature is below 50ºC”.
+2) With the additional sensor you were given: if it is a sensor, just read it and print the values through the serial port; if it is an actuator, use the code from the final exercise of
+Lab 1 to turn it on and off by typing a specific character through the serial port.
+
+----------------------------------------------------------------------
+
+*** 2nd piece of code (with regard to the second exercise) ***
+
+*/
+
+int adc_id = A0;
+int HistoryValue = 0;
+char printBuffer[128];
+
+void setup() 
+{
+  Serial.begin(230400);
+}
+
+void loop() 
+{
+  int value = analogRead(adc_id); // get the adc value
+
+  if(((HistoryValue>=value) && ((HistoryValue - value) > 10)) || ((HistoryValue<value) && ((value - HistoryValue) > 10)))
+  {
+    sprintf(printBuffer, "ADC%d level is %d\n", adc_id, value); // i.e. String Print Formatted function - send formatted output to an array of character elements where the resulting string is stored 
+    Serial.print(printBuffer);
+    HistoryValue = value;
+  }
+}

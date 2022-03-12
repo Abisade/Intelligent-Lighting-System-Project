@@ -1,4 +1,6 @@
-//B and E Letters activate the LED code
+//Program allows for controlling the LED through the Serial Monitor. 
+//Thus, when the ESP8266 receives my “ON character - B” the LED will be switched on, and, 
+//when sending my “OFF character - E”, the LED will be switched off
 
 byte recievedByte = 0;
 
@@ -15,12 +17,12 @@ void loop() {
     recievedByte = Serial.read();      // If there is a character, read it.
     
     if(recievedByte=='E'){
-      //digitalWrite(D4, HIGH);         // turn OFF ESP8266 LED
+      //digitalWrite(D4, HIGH);         // turn OFF embedded LED
       digitalWrite(D2, LOW);           //turn OFF main LED
       Serial.println("LED is switched OFF");
     }    
     else if(recievedByte=='B'){
-      //digitalWrite(D4, LOW);          // turn ON ESP8266 LED
+      //digitalWrite(D4, LOW);          // turn ON embedded LED
       digitalWrite(D2, HIGH);          //turn ON main LED
       Serial.println("LED is switched ON");
       

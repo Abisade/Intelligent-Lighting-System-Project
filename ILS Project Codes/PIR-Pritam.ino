@@ -51,7 +51,7 @@ void loop() {
   kk = digitalRead(inputPin);      //read input value
   if (kk == HIGH) {                //check if the input is HIGH
     digitalWrite(ledPin, LOW);     //turn LED ON
-    delay(5);
+    delay(10);
     
     if (pirState == HIGH) {
       Serial.println("Motion Detected!");

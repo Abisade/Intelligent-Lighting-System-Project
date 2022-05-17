@@ -11,7 +11,7 @@ pragma solidity >=0.5.0 <0.8.0;
 
 contract Factory { 
     uint idDigits=16;
-    uint idModulus=10^idDigits;
+    uint idModulus=10**idDigits;
 
     struct Product {
         string name;

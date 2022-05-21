@@ -1,0 +1,91 @@
+#include "dweetESP8266.h"
+
+#define THIG_NAME  "i4et-ilsp"
+
+const char* ssid = "MOVISTAR_CD5C";
+const char* password = "32YFPDGmiwv4pi27m5gu";
+
+dweet DweetClient;
+int i = 0; // a random initial value
+/* float f = 30.1; // another random initial value */
+
+int redpin = D1; // pin for the red LED
+int greenpin = D2; // pin for the green LED
+int bluepin = D3; // pin for the blue LED
+
+int vall;
+
+char *key1 = "Relay2";   
+char *key2 = "RedLEDStatus";
+
+void setup() {
+
+  pinMode(redpin, OUTPUT);
+  //pinMode(bluepin, OUTPUT);
+  //pinMode(greenpin, OUTPUT);
+     
+  // Start serial
+  Serial.begin(115200);
+  // a small delay is added to initialize the serial port
+  delay(10);
+
+  // Connecting to a WiFi network
+  Serial.println();
+  Serial.println();
+  Serial.print("Connecting to");
+  Serial.println(ssid);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+         delay(500);
+         Serial.print(".");
+  }
+
+  Serial.println("");
+  Serial.println("WiFi connected");
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
+}
+
+char val[16]; // it stores a number composed by up to 16 characters
+
+void loop() {
+
+  String value = DweetClient.getDweet(THIG_NAME, key1);
+  int intvalue=value.toInt();
+  Serial.println(intvalue);
+
+  /* itoa(i, val, 10); // to convert an integer value into a char array */
+  
+  if (intvalue == 1){ // Once the relay is ON, LED will be ON as well. Likewise, if the relay is OFF, LED will be OFF. 
+    i=1;
+    Serial.println(i);
+    itoa(i, val, 10);
+    delay(50);
+    DweetClient.add(key2, val);
+    DweetClient.sendAll(THIG_NAME);
+    for(vall=255; vall>0; vall--)
+  {
+    analogWrite(redpin, vall);
+    //analogWrite(bluepin, 255-vall);
+    //analogWrite(greenpin, 128-vall);
+    Serial.println("Light is ON");
+    delay(50);
+  }
+ }
+  
+  else {
+    i=0;
+    Serial.println(i);
+    itoa(i, val, 10);
+    delay(50);
+    DweetClient.add(key2, val);
+    DweetClient.sendAll(THIG_NAME);
+    
+    digitalWrite(redpin,LOW);
+    //digitalWrite(bluepin,LOW);
+    //digitalWrite(greenpin,LOW);
+    Serial.println("Light is OFF");
+  }
+  
+ delay(500);
+}
